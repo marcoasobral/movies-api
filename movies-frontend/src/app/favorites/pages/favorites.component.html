@@ -1,0 +1,14 @@
+<h2>Meus Favoritos</h2>
+
+<div *ngIf="favorites.length === 0">
+  Você ainda não favoritou nenhum filme.
+</div>
+
+<ul *ngIf="favorites.length > 0">
+  <li *ngFor="let m of favorites" style="margin-bottom:1rem">
+    <strong>{{ m.nome }}</strong> ({{ m.anoLancamento }})<br/>
+    <button (click)="remove(m)">Remover</button>
+  </li>
+</ul>
+
+<a routerLink="/movies">← Voltar à lista de filmes</a>

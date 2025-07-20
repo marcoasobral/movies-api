@@ -1,0 +1,16 @@
+<h2>Lista de Filmes</h2>
+
+<div *ngIf="loading">Carregando filmes...</div>
+<div *ngIf="error" style="color:red">{{ error }}</div>
+
+<ul *ngIf="!loading && !error">
+  <li *ngFor="let m of movies" style="margin-bottom:1rem">
+    <strong>{{ m.nome }}</strong> ({{ m.anoLancamento }})<br/>
+    <span *ngIf="m.descricao">{{ m.descricao }}</span><br/>
+    <small>Gênero: {{ m.genero }}</small><br/>
+    <button (click)="favorite(m)">Favoritar</button>
+  </li>
+</ul>
+<a routerLink="/favorites" style="display:block; margin-top:1rem">
+    Ver Meus Favoritos →
+  </a>

@@ -1,10 +1,13 @@
 const express = require('express');
+const cors = require('cors');
+const app = express();
 const jwt = require('jsonwebtoken');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 const movies = require('./data/movies');
-const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 
 // Chave secreta para JWT (em produção, deve estar em variável de ambiente)
 const JWT_SECRET = process.env.JWT_SECRET || 'sua-chave-secreta-super-segura';

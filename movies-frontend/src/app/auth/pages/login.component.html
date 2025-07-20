@@ -1,0 +1,45 @@
+<h2>Login</h2>
+
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="usuario">Usuário</label><br/>
+    <input
+      id="usuario"
+      name="usuario"
+      type="text"
+      [(ngModel)]="usuario"
+      #usuarioModel="ngModel"
+      required
+    />
+    <div *ngIf="usuarioModel.invalid && usuarioModel.touched" style="color:red">
+      Usuário obrigatório.
+    </div>
+  </div>
+
+  <div style="margin-top:1rem">
+    <label for="senha">Senha</label><br/>
+    <input
+      id="senha"
+      name="senha"
+      type="password"
+      [(ngModel)]="senha"
+      #senhaModel="ngModel"
+      required
+    />
+    <div *ngIf="senhaModel.invalid && senhaModel.touched" style="color:red">
+      Senha obrigatória.
+    </div>
+  </div>
+
+  <div *ngIf="errorMsg" style="color:red; margin-top:1rem">
+    {{ errorMsg }}
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="loginForm.invalid || loading"
+    style="margin-top:1.5rem"
+  >
+    {{ loading ? 'Entrando...' : 'Entrar' }}
+  </button>
+</form>

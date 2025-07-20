@@ -1,0 +1,11 @@
+<header style="padding: 1rem; background: #f8f9fa; display: flex; justify-content: flex-end;">
+    <!-- Só mostra o Logout se estiver autenticado -->
+    <button 
+      *ngIf="auth.isAuthenticated()"
+      (click)="auth.logout()"
+    >
+      Logout
+    </button>
+  </header>
+  
+  <router-outlet></router-outlet>
