@@ -18,7 +18,6 @@ export class FavoritesComponent implements OnInit {
 
   ngOnInit(): void {
     this.favSvc.getFavorites().subscribe(list => {
-      console.log('[FavoritesComponent] lista atualizada:', list);
       this.favorites = list;
     });
   }

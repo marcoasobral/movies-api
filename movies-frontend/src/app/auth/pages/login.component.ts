@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute  } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LoginPayload, LoginResponse } from '../models/auth.model';
 
@@ -12,7 +12,7 @@ import { LoginPayload, LoginResponse } from '../models/auth.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   usuario = '';
   senha = '';
   loading = false;
@@ -20,8 +20,18 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    // se vier ?sessionExpired=true, mostra a mensagem
+    if (this.route.snapshot.queryParams['sessionExpired'] === 'true') {
+      this.errorMsg = 'Sua sessão expirou, logue novamente para acessar o catálogo de filmes';
+    }
+  }
+
+
 
   onSubmit(): void {
     if (!this.usuario || !this.senha) {

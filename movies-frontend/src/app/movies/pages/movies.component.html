@@ -8,9 +8,15 @@
     <strong>{{ m.nome }}</strong> ({{ m.anoLancamento }})<br/>
     <span *ngIf="m.descricao">{{ m.descricao }}</span><br/>
     <small>Gênero: {{ m.genero }}</small><br/>
-    <button (click)="favorite(m)">Favoritar</button>
+    <button
+      (click)="favorite(m)"
+      [disabled]="favIds.has(m.id)"
+    >
+      Favoritar
+    </button>
   </li>
 </ul>
-<a routerLink="/favorites" style="display:block; margin-top:1rem">
-    Ver Meus Favoritos →
-  </a>
+
+<div style="margin-top:1rem">
+  <a routerLink="/favorites">Ver Meus Favoritos →</a>
+</div>

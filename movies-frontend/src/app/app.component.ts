@@ -5,10 +5,10 @@ import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,               // ← torna standalone
-  imports: [RouterOutlet, CommonModule],        // ← já estava importando o outlet
+  standalone: true,             
+  imports: [RouterOutlet, CommonModule],        
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']  // ← nomes no plural, array
+  styleUrls: ['./app.component.css'] 
 })
 export class AppComponent implements OnInit {
   private idleTimer?: ReturnType<typeof setTimeout>;
@@ -31,11 +31,21 @@ export class AppComponent implements OnInit {
   }
 
   private resetTimer(): void {
+    // 1) Limpa qualquer timer anterior
     if (this.idleTimer) {
       clearTimeout(this.idleTimer);
     }
+  
+    // 2) Agenda o logout
     this.idleTimer = setTimeout(() => {
-      this.auth.logout();
+      // Só chama logout(expired) se o usuário ainda estiver autenticado
+      if (this.auth.isAuthenticated()) {
+        this.auth.logout(true);
+      }
+      // 3) Limpa de novo para não disparar duas vezes
+      if (this.idleTimer) {
+        clearTimeout(this.idleTimer);
+      }
     }, this.idleDuration);
   }
-}
+}  

@@ -25,9 +25,13 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  logout(): void {
+  logout(expired = false): void {
     localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    if (expired) {
+      this.router.navigate(['/login'], { queryParams: { sessionExpired: 'true' } });
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   isAuthenticated(): boolean {
